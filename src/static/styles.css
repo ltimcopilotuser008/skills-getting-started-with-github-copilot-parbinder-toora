@@ -5,6 +5,12 @@
 }
 
 body {
+  /* Hide bullet points in participants list */
+}
+
+.participants-list {
+  list-style-type: none;
+}
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;

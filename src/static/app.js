@@ -14,6 +14,18 @@ document.addEventListener("DOMContentLoaded", () => {
       activitiesList.innerHTML = "";
 
       // Populate activities list
+
+        // Add event listener for delete buttons
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+        deleteButtons.forEach(button => {
+          button.addEventListener('click', async () => {
+            const participant = button.getAttribute('data-participant');
+            // Call API to unregister participant
+            await fetch(`/unregister/${participant}`, { method: 'DELETE' });
+            // Refresh activities
+            fetchActivities();
+          });
+        });
       Object.entries(activities).forEach(([name, details]) => {
         const activityCard = document.createElement("div");
         activityCard.className = "activity-card";
@@ -21,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const spotsLeft = details.max_participants - details.participants.length;
 
         const participantsList = details.participants.length > 0
-          ? details.participants.map(p => `<li>${p}</li>`).join('')
+          ? details.participants.map(p => `<li>${p} <button class='delete-btn' data-participant='${p}'>🗑️</button></li>`).join('')
           : '<li class="no-participants">No participants yet</li>';
 
         activityCard.innerHTML = `
@@ -72,6 +84,8 @@ document.addEventListener("DOMContentLoaded", () => {
         messageDiv.textContent = result.message;
         messageDiv.className = "success";
         signupForm.reset();
+        // Refresh activities to show the new participant
+        fetchActivities();
       } else {
         messageDiv.textContent = result.detail || "An error occurred";
         messageDiv.className = "error";
