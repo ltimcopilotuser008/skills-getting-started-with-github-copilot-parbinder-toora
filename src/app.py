@@ -35,6 +35,12 @@ activities = {
     },
     "Gym Class": {
         "description": "Physical education and sports activities",
+    "hiking",
+    "swimming",
+    "painting",
+    "photography",
+    "chess",
+    "astronomy",
     # Add new activities here
         "schedule": "Mondays, Wednesdays, Fridays, 2:00 PM - 3:00 PM",
         "max_participants": 30,
